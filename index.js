@@ -5,9 +5,9 @@ const app = express();
 app.use(express.json());
 
 // Tus credenciales reales configuradas
-const WHATSAPP_TOKEN = "EAAYZCqa9o0UYBS2fsRkPt8V8acL5OkVnIHAInAVZAkPkRHTe3UQRXZCDGcZCSU2AuiFJ2uwja5mZCR2VKQuJCfrSQ8z3uYFmQZCZBz0nn02D355oNmNPvwGZAHhwmBG3ZBggkggver3ZAgoyd88az79hQzXtDWkqbt3rMmOJlBwNEBwkRbni76PpsjeZA20wGo8C8gFfwZDZD";
-const PHONE_NUMBER_ID = "1384368661425929";
-const VERIFY_TOKEN = "dinero_facil_token_seguro";
+const WHATSAPP_TOKEN = process.env.WHATSAPP_TOKEN;
+const PHONE_NUMBER_ID = process.env.PHONE_NUMBER_ID;
+const VERIFY_TOKEN = process.env.VERIFY_TOKEN;
 
 // Ruta de verificación del Webhook (GET)
 app.get('/webhook', (req, res) => {
