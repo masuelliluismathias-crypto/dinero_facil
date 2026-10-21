@@ -7,7 +7,7 @@ app.use(express.json());
 // Tus credenciales reales configuradas
 const WHATSAPP_TOKEN = "EAAYZCqa9o0UYBS2fsRkPt8V8acL5OkVnIHAInAVZAkPkRHTe3UQRXZCDGcZCSU2AuiFJ2uwja5mZCR2VKQuJCfrSQ8z3uYFmQZCZBz0nn02D355oNmNPvwGZAHhwmBG3ZBggkggver3ZAgoyd88az79hQzXtDWkqbt3rMmOJlBwNEBwkRbni76PpsjeZA20wGo8C8gFfwZDZD";
 const PHONE_NUMBER_ID = "1384368661425929";
-const VERIFY_TOKEN = "dinero_facil_token_seguro"; // El token que usaste para verificar el webhook
+const VERIFY_TOKEN = "dinero_facil_token_seguro";
 
 // Ruta de verificación del Webhook (GET)
 app.get('/webhook', (req, res) => {
@@ -40,22 +40,22 @@ app.post('/webhook', async (req, res) => {
                 body.entry[0].changes[0].value.messages[0]
             ) {
                 const message = body.entry[0].changes[0].value.messages[0];
-                const from = message.from; // Número de teléfono del usuario que escribe
+                const from = message.from; 
                 const msgBody = message.text ? message.text.body : '';
 
-                console.log(Mensaje recibido de ${from}: ${msgBody});
+                console.log("Mensaje recibido de " + from + ": " + msgBody);
 
                 // Respuesta automática del bot
                 await axios.post(
-                    https://graph.facebook.com/v17.0/${PHONE_NUMBER_ID}/messages,
+                    'https://graph.facebook.com/v17.0/' + PHONE_NUMBER_ID + '/messages',
                     {
                         messaging_product: 'whatsapp',
                         to: from,
-                        text: { body: ¡Hola! Gracias por comunicarte con Dinero Facil. Hemos recibido tu mensaje: "${msgBody}". Te responderemos a la brevedad. },
+                        text: { body: '¡Hola! Gracias por comunicarte con Dinero Facil. Hemos recibido tu mensaje. Te responderemos a la brevedad.' },
                     },
                     {
                         headers: {
-                            Authorization: Bearer ${WHATSAPP_TOKEN},
+                            Authorization: 'Bearer ' + WHATSAPP_TOKEN,
                             'Content-Type': 'application/json',
                         },
                     }
@@ -74,5 +74,5 @@ app.post('/webhook', async (req, res) => {
 // Puerto de escucha para Render
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log(Bot de Dinero Facil corriendo en el puerto ${PORT});
+    console.log('Bot de Dinero Facil corriendo en el puerto ' + PORT);
 });
